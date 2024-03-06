@@ -6,7 +6,7 @@ pipeline{
             APP_REPO_NAME="todo-app"
             DB_VOLUME="myvolume"
             NETWORK="mynetwork"
-            POSTGRES_PASSWORD="Pp123456789"
+            
             
         }
     stages {
@@ -47,7 +47,7 @@ pipeline{
         stage('Deploy the Database') {
             steps {
                 echo 'Deploying the Postgresql'
-                withCredentials([string(credentialsId: 'Postgres-Password', variable: 'POSTGRES_PASSWORD')]) {
+                withCredentials([string(credentialsId: 'postgre-password', variable: 'POSTGRES_PASSWORD')]) {
                 sh 'docker run --name postgres -p 5432:5432 -v $DB_VOLUME:/var/lib/postgresql/data --network $NETWORK -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD --restart always -d $DOCKERHUB_USER/$APP_REPO_NAME:postgre'
              }
         }
@@ -56,7 +56,7 @@ pipeline{
             steps {
                 script {
                     echo 'Waiting for the containers'
-                    sh 'sleep 60s'
+                    sh 'sleep 30s'
                 }
             }
         }
@@ -72,7 +72,7 @@ pipeline{
             steps {
                 script {
                     echo 'Waiting for the containers'
-                    sh 'sleep 60s'
+                    sh 'sleep 15s'
                 }
             }
         }

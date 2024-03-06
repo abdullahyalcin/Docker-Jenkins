@@ -106,9 +106,12 @@ pipeline{
 
         success {
             echo 'Pipeline executed successfully'
-            sh 'echo "SUCCESS"'
+            script {
+            slackSend channel: '#class-chat', color: '#439FE0', message: ':martial_arts_uniform:', teamDomain: 'devops15tr', tokenCredentialId: 'jenkins-slack'
+                }
         }
-
+     
+        
         failure {
             echo 'Pipeline failed. Cleaning up containers, images, network, and volume.'
             sh 'echo "FAILURE"'

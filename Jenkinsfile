@@ -6,6 +6,7 @@ pipeline{
             APP_REPO_NAME="todo-app"
             DB_VOLUME="myvolume"
             NETWORK="mynetwork"
+            PATH = "/usr/local/bin:$PATH"
             
             
         }
